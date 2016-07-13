@@ -1,9 +1,17 @@
+/*
+** main.c for  in /home/baptiste/project/webserver
+**
+** Made by
+** Login   <baptiste.heraud@epitech.eu>
+**
+** Started on  Wed Jul 13 13:56:18 2016
+** Last update Wed Jul 13 13:56:29 2016 
+*/
 
 #include "data.h"
 
 int	main()
 {
-  /* int erreur = 0; */
   SOCKADDR_IN sin;
   SOCKET sock;
   socklen_t recsize = sizeof(sin);
@@ -20,46 +28,46 @@ int	main()
     "h1 { font-size:4cm; text-align: center; color: black;"
     " text-shadow: 0 0 2mm red}</style></head>"
     "<body><h1>Goodbye, world!</h1></body></html>\r\n";
+  char	buff[900000] = { 0};
 
-
-  /* if(!erreur) */
-  /*   { */
-      sock = socket(AF_INET, SOCK_STREAM, 0);
-      if(sock != INVALID_SOCKET)
+  sock = socket(AF_INET, SOCK_STREAM, 0);
+  if(sock != INVALID_SOCKET)
+    {
+      printf("La socket %d est maintenant ouverte en mode TCP/IP\n", sock);
+      sin.sin_addr.s_addr = htonl(INADDR_ANY);
+      sin.sin_family = AF_INET;
+      sin.sin_port = htons(PORT);
+      sock_err = bind(sock, (SOCKADDR*)&sin, recsize);
+      if(sock_err != SOCKET_ERROR)
 	{
-	  printf("La socket %d est maintenant ouverte en mode TCP/IP\n", sock);
-	  sin.sin_addr.s_addr = htonl(INADDR_ANY);
-	  sin.sin_family = AF_INET;
-	  sin.sin_port = htons(PORT);
-	  sock_err = bind(sock, (SOCKADDR*)&sin, recsize);
+	  sock_err = listen(sock, 5);
+	  printf("Listage du port %d...\n", PORT);
 	  if(sock_err != SOCKET_ERROR)
 	    {
-	      sock_err = listen(sock, 5);
-	      printf("Listage du port %d...\n", PORT);
-	      if(sock_err != SOCKET_ERROR)
+	      printf("Patientez pendant que le client se connecte sur le port %d...\n", PORT);
+	      while (1)
 		{
-		  printf("Patientez pendant que le client se connecte sur le port %d...\n", PORT);
-		  while (1)
-		    {
-		      /* usleep(.100); */
-		      csock = accept(sock, (SOCKADDR*)&csin, &crecsize);
-		      printf("Un client se connecte avec la socket %d de %s:%d\n", csock, inet_ntoa(csin.sin_addr), htons(csin.sin_port));
-		      write(csock, response, sizeof(response) - 1);
-		      printf("Fermeture de la socket client\n");
-		      close(csock);
+		  /* usleep(.100); */
+		  csock = accept(sock, (SOCKADDR*)&csin, &crecsize);
+		  printf("Un client se connecte avec la socket %d de %s:%d\n", csock, inet_ntoa(csin.sin_addr), htons(csin.sin_port));
+		  read(csock, buff, 9999);
+		  printf("buff = %s\n", buff);
+		  write(csock, response, sizeof(response) - 1);
+		  printf("Fermeture de la socket client\n");
+		  close(csock);
 
-		    }
 		}
-	      else
-		perror("listen");
 	    }
 	  else
-	    perror("bind");
-	  printf("Fermeture de la socket serveur\n");
-	  close(sock);
-	  printf("Fermeture du serveur terminée\n");
+	    perror("listen");
 	}
       else
-	perror("socket");
+	perror("bind");
+      printf("Fermeture de la socket serveur\n");
+      close(sock);
+      printf("Fermeture du serveur terminée\n");
+    }
+  else
+    perror("socket");
   return (EXIT_SUCCESS);
 }
