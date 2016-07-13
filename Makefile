@@ -1,7 +1,7 @@
 NAME	=	webserv
 
 SRC	=	main.c \
-		error.c 
+		log.c 
 
 INC_DIR	=	include
 

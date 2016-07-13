@@ -3,7 +3,7 @@
 
 int	main()
 {
-  int erreur = 0;
+  /* int erreur = 0; */
   SOCKADDR_IN sin;
   SOCKET sock;
   socklen_t recsize = sizeof(sin);
@@ -22,8 +22,8 @@ int	main()
     "<body><h1>Goodbye, world!</h1></body></html>\r\n";
 
 
-  if(!erreur)
-    {
+  /* if(!erreur) */
+  /*   { */
       sock = socket(AF_INET, SOCK_STREAM, 0);
       if(sock != INVALID_SOCKET)
 	{
@@ -61,6 +61,6 @@ int	main()
 	}
       else
 	perror("socket");
-    }
+    /* } */
   return (EXIT_SUCCESS);
 }

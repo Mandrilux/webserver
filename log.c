@@ -5,7 +5,7 @@
 ** Login   <baptiste@epitech.net>
 **
 ** Started on  Fri Jul  1 11:33:51 2016
-** Last update Wed Jul 13 11:22:44 2016 
+** Last update Wed Jul 13 13:43:54 2016 
 */
 
 #include "data.h"
@@ -52,10 +52,10 @@ char *get_date_system()
 
   struct tm * tm = localtime(&now);
   strftime(date, sizeof date, "%B %d, %Y %H:%M:%S", tm);
-  #ifdef __linux__
+#ifdef __linux__
   tmp = strdup(date);
-  #elif _WIN32
+#elif _WIN32
   tmp = _strdup(date);
-  #endif
+#endif
   return (tmp);
 }
