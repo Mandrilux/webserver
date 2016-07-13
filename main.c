@@ -41,7 +41,7 @@ int	main()
 		  printf("Patientez pendant que le client se connecte sur le port %d...\n", PORT);
 		  while (1)
 		    {
-		      usleep(.100);
+		      /* usleep(.100); */
 		      csock = accept(sock, (SOCKADDR*)&csin, &crecsize);
 		      printf("Un client se connecte avec la socket %d de %s:%d\n", csock, inet_ntoa(csin.sin_addr), htons(csin.sin_port));
 		      write(csock, response, sizeof(response) - 1);
@@ -61,6 +61,5 @@ int	main()
 	}
       else
 	perror("socket");
-    /* } */
   return (EXIT_SUCCESS);
 }
