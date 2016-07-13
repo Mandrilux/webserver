@@ -11,7 +11,6 @@ int	main()
   SOCKET csock;
   socklen_t crecsize = sizeof(csin);
   int sock_err;
-  /* char	buffer[32]; */
 
   if(!erreur)
     {
@@ -30,18 +29,21 @@ int	main()
 	      if(sock_err != SOCKET_ERROR)
 		{
 		  printf("Patientez pendant que le client se connecte sur le port %d...\n", PORT);
-		  csock = accept(sock, (SOCKADDR*)&csin, &crecsize);
-		  printf("Un client se connecte avec la socket %d de %s:%d\n", csock, inet_ntoa(csin.sin_addr), htons(csin.sin_port));
-		  /* if(recv(sock, buffer, 32, 0) != SOCKET_ERROR) */
-		  /*   printf("Recu : %s\n", buffer); */
+		  while (1)
+		    {
+		      pause();
+		      csock = accept(sock, (SOCKADDR*)&csin, &crecsize);
+		      printf("Un client se connecte avec la socket %d de %s:%d\n", csock, inet_ntoa(csin.sin_addr), htons(csin.sin_port));
+		      printf("Fermeture de la socket client\n");
+		      close(csock);
+
+		    }
 		}
 	      else
 		perror("listen");
 	    }
 	  else
 	    perror("bind");
-	  printf("Fermeture de la socket client\n");
-	  close(csock);
 	  printf("Fermeture de la socket serveur\n");
 	  close(sock);
 	  printf("Fermeture du serveur terminée\n");
