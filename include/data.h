@@ -7,19 +7,8 @@
 #include <errno.h>
 #include <time.h>
 #include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
+#include "serv.h"
 
-#define INVALID_SOCKET -1
-#define SOCKET_ERROR -1
-
-#define PORT 80
-typedef int SOCKET;
-typedef struct sockaddr_in SOCKADDR_IN;
-typedef struct sockaddr SOCKADDR;
 		/* date.c */
 
 char		 *get_date_system();
