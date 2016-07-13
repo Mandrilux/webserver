@@ -5,7 +5,7 @@
 ** Login   <baptiste.heraud@epitech.eu>
 **
 ** Started on  Wed Jul 13 13:56:18 2016
-** Last update Wed Jul 13 16:20:01 2016 
+** Last update Wed Jul 13 16:51:20 2016 
 */
 
 #include "data.h"
@@ -49,7 +49,6 @@ int	main()
 	}
       else
 	perror("bind");
-      /* log_std_error("bind", -1, LOG_ERROR, "ERROR"); */
       printf("Fermeture de la socket serveur\n");
       close(sock);
       printf("Fermeture du serveur terminée\n");
@@ -71,17 +70,19 @@ int	read_weft(SOCKET csock, char *ip)
     return (-1);
   if ((tmp = epur_str(buff)) == NULL)
     exit (printf("ERROR MEMORY\n"));
-  /* printf("%s\n", tmp); */
   if ((line = strtowordtab(tmp, '\n')) == NULL)
-    exit (printf("ERROR MEMORY\n"));
-  path = strtowordtab(line[0], ' ');
-  if (strcmp(path[1], "/") == 0)
-    printf("ok\n");
-  else
+    return (printf("ERROR MEMORY\n"));
+  if (line[0] != NULL)
     {
-      printf("on logue l'error\n");
-      log_error_file("ERROR", ip, path[1], LOG_ERROR);
-      printf("erreur logué\n");
+      if ((path = strtowordtab(line[0], ' ')) == NULL)
+	return (printf("ERROR MEMORY\n"));
+      if (strcmp(path[1], "/") == 0)
+	printf("ok\n");
+      else
+	{
+	  printf("ERREUR\n");
+	  log_error_file("ERROR", ip, path[1], LOG_ERROR);
+	}
     }
   free(tmp);
   free_double_char(path);
