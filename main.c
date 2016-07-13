@@ -5,7 +5,7 @@
 ** Login   <baptiste.heraud@epitech.eu>
 **
 ** Started on  Wed Jul 13 13:56:18 2016
-** Last update Wed Jul 13 15:10:34 2016 
+** Last update Wed Jul 13 16:20:01 2016 
 */
 
 #include "data.h"
@@ -37,7 +37,7 @@ int	main()
 		{
 		  csock = accept(sock, (SOCKADDR*)&csin, &crecsize);
 		  printf("Un client se connecte avec la socket %d de %s:%d\n", csock, inet_ntoa(csin.sin_addr), htons(csin.sin_port));
-       		  read_weft(csock);
+       		  read_weft(csock, inet_ntoa(csin.sin_addr));
 		  send_weft(csock);
 		  usleep(.200);
 		  printf("Fermeture de la socket client\n");
@@ -49,7 +49,7 @@ int	main()
 	}
       else
 	perror("bind");
-      log_std_error("bind", -1, LOG_ERROR, "ERROR");
+      /* log_std_error("bind", -1, LOG_ERROR, "ERROR"); */
       printf("Fermeture de la socket serveur\n");
       close(sock);
       printf("Fermeture du serveur terminée\n");
@@ -59,14 +59,13 @@ int	main()
   return (EXIT_SUCCESS);
 }
 
-int	read_weft(SOCKET csock)
+int	read_weft(SOCKET csock, char *ip)
 {
   char	buff[1024] = {0};
   int	flag = 0;
   char	**line = NULL;
   char	**path = NULL;
   char	*tmp = NULL;
-  int	i = -1;
 
   if ((flag = read(csock, buff, 1023)) == -1)
     return (-1);
@@ -76,9 +75,17 @@ int	read_weft(SOCKET csock)
   if ((line = strtowordtab(tmp, '\n')) == NULL)
     exit (printf("ERROR MEMORY\n"));
   path = strtowordtab(line[0], ' ');
-  while (path[++i] != NULL)
-    printf("%s\n", path[i]);
+  if (strcmp(path[1], "/") == 0)
+    printf("ok\n");
+  else
+    {
+      printf("on logue l'error\n");
+      log_error_file("ERROR", ip, path[1], LOG_ERROR);
+      printf("erreur logué\n");
+    }
   free(tmp);
+  free_double_char(path);
+  free_double_char(line);
   return (1);
 }
 

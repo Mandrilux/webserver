@@ -5,7 +5,7 @@
 ** Login   <baptiste@epitech.net>
 **
 ** Started on  Fri Jul  1 11:33:51 2016
-** Last update Wed Jul 13 14:34:03 2016 
+** Last update Wed Jul 13 16:25:20 2016 
 */
 
 #include "data.h"
@@ -48,9 +48,12 @@ int	log_error_file(char *flag, char *ip, char *file_err, char *log)
   char  *date = NULL;
 
   date = get_date_system();
+  printf("log = %s\n", log);
   if ((fd = fopen(log, "a+")) == NULL)
-    return (-1);
+      return (-1);
   fprintf(fd, "[%s] [%s] [client %s] File does not exist: %s\n", date, flag, ip, file_err);
+  fclose(fd);
+  free(date);
   return (1);
 }
 

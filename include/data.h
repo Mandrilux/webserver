@@ -24,6 +24,10 @@ int		 log_std_error(char *str, int status, char *file, char *flag);
 int		 log_error_file(char *flag, char *ip, char *file_err, char *log);
 char		 *get_date_system();
 
+		/* free.c */
+
+int		 free_double_char(char **tab);
+
 		/* str.c */
 
 char		 *epur_str(char *str);
@@ -31,7 +35,7 @@ char		 *epur_str(char *str);
 		/* main.c */
 
 int		 main();
-int		 read_weft(SOCKET csock);
+int		 read_weft(SOCKET csock, char *ip);
 int		 send_weft(SOCKET csock);
 
 #endif /* DATA_H_ */
