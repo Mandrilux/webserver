@@ -24,6 +24,10 @@ int		 log_std_error(char *str, int status, char *file, char *flag);
 int		 log_error_file(char *flag, char *ip, char *file_err, char *log);
 char		 *get_date_system();
 
+		/* str.c */
+
+char		 *epur_str(char *str);
+
 		/* main.c */
 
 int		 main();

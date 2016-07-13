@@ -5,7 +5,7 @@
 ** Login   <baptiste.heraud@epitech.eu>
 **
 ** Started on  Wed Jul 13 13:56:18 2016
-** Last update Wed Jul 13 14:41:19 2016 
+** Last update Wed Jul 13 15:10:34 2016 
 */
 
 #include "data.h"
@@ -63,10 +63,22 @@ int	read_weft(SOCKET csock)
 {
   char	buff[1024] = {0};
   int	flag = 0;
+  char	**line = NULL;
+  char	**path = NULL;
+  char	*tmp = NULL;
+  int	i = -1;
 
   if ((flag = read(csock, buff, 1023)) == -1)
     return (-1);
-  printf("%s\n", buff);
+  if ((tmp = epur_str(buff)) == NULL)
+    exit (printf("ERROR MEMORY\n"));
+  /* printf("%s\n", tmp); */
+  if ((line = strtowordtab(tmp, '\n')) == NULL)
+    exit (printf("ERROR MEMORY\n"));
+  path = strtowordtab(line[0], ' ');
+  while (path[++i] != NULL)
+    printf("%s\n", path[i]);
+  free(tmp);
   return (1);
 }
 
