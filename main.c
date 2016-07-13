@@ -12,6 +12,16 @@ int	main()
   socklen_t crecsize = sizeof(csin);
   int sock_err;
 
+
+  char response[] = "HTTP/1.1 200 OK\r\n"
+    "Content-Type: text/html; charset=UTF-8\r\n\r\n"
+    "<!DOCTYPE html><html><head><title>Bye-bye baby bye-bye</title>"
+    "<style>body { background-color: #111 }"
+    "h1 { font-size:4cm; text-align: center; color: black;"
+    " text-shadow: 0 0 2mm red}</style></head>"
+    "<body><h1>Goodbye, world!</h1></body></html>\r\n";
+
+
   if(!erreur)
     {
       sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -31,9 +41,10 @@ int	main()
 		  printf("Patientez pendant que le client se connecte sur le port %d...\n", PORT);
 		  while (1)
 		    {
-		      pause();
+		      usleep(.100);
 		      csock = accept(sock, (SOCKADDR*)&csin, &crecsize);
 		      printf("Un client se connecte avec la socket %d de %s:%d\n", csock, inet_ntoa(csin.sin_addr), htons(csin.sin_port));
+		      write(csock, response, sizeof(response) - 1);
 		      printf("Fermeture de la socket client\n");
 		      close(csock);
 
