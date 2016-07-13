@@ -1,8 +1,8 @@
 NAME	=	webserv
 
 SRC	=	main.c \
-		log.c 
-
+		log.c \
+		strtoword.c
 INC_DIR	=	include
 
 OBJ	=	$(SRC:.c=.o)
