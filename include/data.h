@@ -33,6 +33,10 @@ int		 free_double_char(char **tab);
 int		 read_weft(SOCKET csock, char *ip);
 int		 decode_weft(char **data, t_weft *data_code);
 
+		/* init.c */
+
+int		 init_dir(char *path);
+
 		/* str.c */
 
 char		 *epur_str(char *str);

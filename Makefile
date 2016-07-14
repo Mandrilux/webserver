@@ -1,6 +1,7 @@
 NAME	=	webserv
 
 SRC	=	main.c \
+		init.c \
 		log.c \
 		strtoword.c \
 		str.c \

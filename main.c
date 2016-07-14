@@ -5,7 +5,7 @@
 ** Login   <baptiste.heraud@epitech.eu>
 **
 ** Started on  Wed Jul 13 13:56:18 2016
-** Last update Thu Jul 14 11:27:09 2016 
+** Last update Thu Jul 14 21:28:42 2016 
 */
 
 #include "data.h"
@@ -32,6 +32,8 @@ int	main()
 	  sock_err = listen(sock, 5);
 	  if(sock_err != SOCKET_ERROR)
 	    {
+	      if (init_dir(ROOT) == -1)
+		exit(printf("erreur"));
 	      printf("Patientez pendant que le client se connecte sur le port %d...\n", PORT);
 	      while (1)
 		{
