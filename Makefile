@@ -4,7 +4,9 @@ SRC	=	main.c \
 		log.c \
 		strtoword.c \
 		str.c \
-		free.c
+		free.c \
+		weft.c \
+		send.c
 
 INC_DIR	=	include
 

@@ -9,6 +9,17 @@
 #include <string.h>
 #include "serv.h"
 
+ typedef struct          s_option
+ {
+   char                  *option;
+   char                  *base;
+   char                  *old_base;
+   char                  *command;
+   int                   stop;
+   int                   size;
+ }                       t_option;
+
+
 		/* strtoword.c */
 
 int		 count_words(char *str, char decoup);
@@ -20,30 +31,22 @@ char		 **strtowordtab(char *str, char decoup);
 		/* log.c */
 
 int		 log_error(char *msg, int status, char *file, char *flag, int display);
+int		 log_std_error(char *str, int status, char *file, char *flag);
 int		 log_error_file(char *flag, char *ip, char *file_err, char *log);
-int		 log_access_file(char *ip, char *type, char*agent, char *log);
 char		 *get_date_system();
 
 		/* free.c */
 
 int		 free_double_char(char **tab);
 
-		/* weft.c */
-
-int		 read_weft(SOCKET csock, char *ip);
-int		 decode_weft(char **data, t_weft *data_code);
-
 		/* str.c */
 
 char		 *epur_str(char *str);
 
-		/* send.c */
-
-int		 send_weft_200(SOCKET csock, char *ip, t_weft data);
-int		 send_weft_404(SOCKET csock, char *ip, char *path);
-
 		/* main.c */
 
 int		 main();
+int		 read_weft(SOCKET csock, char *ip);
+int		 send_weft(SOCKET csock);
 
 #endif /* DATA_H_ */
