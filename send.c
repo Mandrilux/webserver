@@ -5,7 +5,7 @@
 ** Login   <baptiste.heraud@epitech.eu>
 **
 ** Started on  Thu Jul 14 11:24:09 2016
-** Last update Thu Jul 14 11:37:10 2016 
+** Last update Thu Jul 14 11:47:09 2016 
 */
 
 #include "data.h"
@@ -26,13 +26,13 @@ int     send_weft_200(SOCKET csock, char *ip, t_weft data)
 
 int     send_weft_404(SOCKET csock, char *ip, char *path)
 {
-      char response[] = "HTTP/1.1 404 OK\r\n"
+      char response[] = "HTTP/1.1 404 Not Found\r\n"
 	          "Content-Type: text/html; charset=UTF-8\r\n\r\n"
 	          "<!DOCTYPE html><html><head><title>404 NO FOUND</title>"
 	          "<style>body { background-color: white }"
 	          "h1 { font-size:4cm; text-align: center; color: black;"
 	          " text-shadow: 0 0 2mm red}</style></head>"
-	"<body><h1>Goodbye, world!</h1></body></html>\r\n";
+	"<body><h1>Not Found</h1><hr><p> V.01 serv_baptiste</body></html>\r\n";
       write(csock, response, sizeof(response) - 1);
       log_error_file("ERROR", ip, path, LOG_ERROR);
       return (1);

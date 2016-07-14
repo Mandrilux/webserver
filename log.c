@@ -5,7 +5,7 @@
 ** Login   <baptiste@epitech.net>
 **
 ** Started on  Fri Jul  1 11:33:51 2016
-** Last update Thu Jul 14 11:34:32 2016 
+** Last update Thu Jul 14 11:50:12 2016 
 */
 
 #include "data.h"
@@ -26,29 +26,12 @@ int	log_error(char *msg, int status, char *file, char *flag, int display)
   return (status);
 }
 
-/* int	log_std_error(char *str, int status, char *file, char *flag) */
-/* { */
-/*   FILE *fd = NULL; */
-/*   char	*error = NULL; */
-/*   char	*date = NULL; */
-
-/*   date = get_date_system(); */
-/*   error = strerror(errno); */
-/*   if ((fd = fopen(file, "a+")) == NULL) */
-/*     return (status); */
-/*   fprintf(fd, "[%s] [%s] %s %s\n", date, flag, str, error); */
-/*   fclose(fd); */
-/*   free(date); */
-/*   return (status); */
-/* } */
-
 int	log_error_file(char *flag, char *ip, char *file_err, char *log)
 {
   FILE *fd = NULL;
   char  *date = NULL;
 
   date = get_date_system();
-  printf("log = %s\n", log);
   if ((fd = fopen(log, "a+")) == NULL)
       return (-1);
   fprintf(fd, "[%s] [%s] [client %s] File does not exist: %s\n", date, flag, ip, file_err);
@@ -63,10 +46,9 @@ int     log_access_file(char *ip, char *type, char*agent, char *log)
   char  *date = NULL;
 
   date = get_date_system();
-  printf("log = %s\n", log);
   if ((fd = fopen(log, "a+")) == NULL)
     return (-1);
-  fprintf(fd, "[%s] - - [%s] \"%s\" \"%s\"\n", ip, date, type, agent);
+  fprintf(fd, "[%s] - - [%s] - %s - %s \n", ip, date, type, agent);
   fclose(fd);
   free(date);
   return (1);
