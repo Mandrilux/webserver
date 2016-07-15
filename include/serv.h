@@ -20,6 +20,7 @@ typedef struct          s_weft
   char	*user_agent;
   char	*page;
   char	*version;
+  char	*code_page;
   int	error;
 }                       t_weft;
 

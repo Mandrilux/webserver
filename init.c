@@ -21,5 +21,6 @@ void    init_data(t_weft *data_code)
   data_code->etat = NULL;
   data_code->page = NULL;
   data_code->version = NULL;
+  data_code->code_page = NULL;
   data_code->error = 0;
 }

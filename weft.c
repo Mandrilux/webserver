@@ -16,12 +16,17 @@ int     read_weft(SOCKET csock, char *ip)
     return (printf("ERROR MEMORY\n"));
   if (decode_weft(line, &data_code) == -1)
     return (printf("Erreur decode string\n"));
-  if (strcmp(data_code.page, "/") == 0)
-    send_weft_200(csock, ip, data_code);
-  else
-    send_weft_404(csock, ip, data_code.page);
+  /* if (data_code.error = 200) */
+  /*   { */
+  /*     send_weft_200(csock, ip, data_code); */
+
+  /*   } */
+  /* else */
+  /*   send_weft_404(csock, ip, data_code.page); */
+  send_page(csock, &data_code, ip);
   free(tmp);
   free_double_char(line);
+  free_data(&data_code);
   return (1);
 }
 
@@ -42,6 +47,7 @@ int	decode_weft(char **data, t_weft *data_code)
 	  data_code->type = path[0];
 	  data_code->page = path[1];
 	  data_code->version = path[2];
+	  get_page(data_code);
 	}
       if (strstr(data[i],"Host:") != NULL)
 	data_code->host = &(data[i][5]);
@@ -50,5 +56,27 @@ int	decode_weft(char **data, t_weft *data_code)
       if (strstr(data[i], "Connection:") != NULL)
 	data_code->etat = &(data[i][11]);
     }
+  return (1);
+}
+
+int	get_page(t_weft *data_code)
+{
+  char	*path;
+  FILE *fp = NULL;
+  char	code[10000] = {0};
+  if ((path = calloc(strlen(ROOT) + strlen(data_code->page) + 10,sizeof(char))) == NULL)
+    return (-1);
+  if (strcmp(data_code->page, "/") == 0)
+    sprintf(path, "%s%s",ROOT , "/index.html");
+  else
+    sprintf(path, "%s%s", ROOT, data_code->page);
+  if ((fp = fopen (path, "r")) != NULL)
+    {
+      data_code->code_page = fgets(code, 9999, fp);
+      data_code->error = 200;
+    }
+  else
+    data_code->error = 404;
+  free(path);
   return (1);
 }

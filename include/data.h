@@ -26,16 +26,18 @@ char		 *get_date_system();
 		/* free.c */
 
 int		 free_double_char(char **tab);
+void		 free_data(t_weft *data_code);
 
 		/* weft.c */
 
 int		 read_weft(SOCKET csock, char *ip);
 int		 decode_weft(char **data, t_weft *data_code);
-void		 init_data(t_weft *data_code);
+int		 get_page(t_weft *data_code);
 
 		/* init.c */
 
 int		 init_dir(char *path);
+void		 init_data(t_weft *data_code);
 
 		/* str.c */
 
@@ -43,8 +45,7 @@ char		 *epur_str(char *str);
 
 		/* send.c */
 
-int		 send_weft_200(SOCKET csock, char *ip, t_weft data);
-int		 send_weft_404(SOCKET csock, char *ip, char *path);
+int		 send_page(SOCKET csock, t_weft *data, char *ip);
 
 		/* main.c */
 
