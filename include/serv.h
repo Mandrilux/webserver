@@ -20,6 +20,7 @@ typedef struct          s_weft
   char	*user_agent;
   char	*page;
   char	*version;
+  int	error;
 }                       t_weft;
 
 #define PORT 80

@@ -5,7 +5,7 @@
 ** Login   <baptiste.heraud@epitech.eu>
 **
 ** Started on  Wed Jul 13 13:56:18 2016
-** Last update Fri Jul 15 11:45:57 2016 
+** Last update Fri Jul 15 11:47:45 2016 
 */
 
 #include "data.h"
@@ -22,7 +22,7 @@ int	main()
 
   if ((sock = socket(AF_INET, SOCK_STREAM, 0)) != INVALID_SOCKET)
     {
-      printf("La socket %d est maintenant ouverte en mode TCP/IP\n", sock);
+      /* printf("La socket %d est maintenant ouverte en mode TCP/IP\n", sock); */
       sin.sin_addr.s_addr = htonl(INADDR_ANY);
       sin.sin_family = AF_INET;
       sin.sin_port = htons(PORT);
@@ -33,7 +33,7 @@ int	main()
 	  if(sock_err != SOCKET_ERROR)
 	    {
 	      if (init_dir(ROOT) == -1)
-		exit(printf("erreur"));
+		exit(printf("Impossible d'acceder au fichier web"));
 	      printf("Patientez pendant que le client se connecte sur le port %d...\n", PORT);
 	      while (1)
 		{
@@ -50,11 +50,11 @@ int	main()
 	}
       else
 	perror("bind");
-      printf("Fermeture de la socket serveur\n");
+      /* printf("Fermeture de la socket serveur\n"); */
       close(sock);
-      printf("Fermeture du serveur terminée\n");
+      /* printf("Fermeture du serveur terminée\n"); */
     }
   else
     perror("socket");
-  return (EXIT_SUCCESS);
+  return EXIT_SUCCESS;
 }
