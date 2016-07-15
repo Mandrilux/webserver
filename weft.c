@@ -61,15 +61,16 @@ int	decode_weft(char **data, t_weft *data_code)
 
 int	get_page(t_weft *data_code)
 {
-  char	*path;
+  char	*path = NULL;
   FILE *fp = NULL;
   char	code[10000] = {0};
-  if ((path = calloc(strlen(ROOT) + strlen(data_code->page) + 10,sizeof(char))) == NULL)
+
+  if ((path = calloc((int)strlen(ROOT) + (int)strlen(data_code->page) + 15,sizeof(char))) == NULL)
     return (-1);
   if (strcmp(data_code->page, "/") == 0)
-    sprintf(path, "%s%s",ROOT , "/index.html");
+      sprintf(path, "%s%s", ROOT , "/index.html");
   else
-    sprintf(path, "%s%s", ROOT, data_code->page);
+      sprintf(path, "%s%s", ROOT, data_code->page);
   if ((fp = fopen (path, "r")) != NULL)
     {
       data_code->code_page = fgets(code, 9999, fp);
@@ -78,5 +79,6 @@ int	get_page(t_weft *data_code)
   else
     data_code->error = 404;
   free(path);
+  fclose(fp);
   return (1);
 }

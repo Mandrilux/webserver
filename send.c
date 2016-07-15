@@ -5,7 +5,7 @@
 ** Login   <baptiste.heraud@epitech.eu>
 **
 ** Started on  Thu Jul 14 11:24:09 2016
-** Last update Fri Jul 15 12:53:13 2016 
+** Last update Fri Jul 15 18:29:41 2016 
 */
 
 #include "data.h"
@@ -13,26 +13,45 @@
 
 int	send_page(SOCKET csock, t_weft *data, char *ip)
 {
-  char	*response = NULL;
+  /* char	*response = NULL; */
 
-  if (data->code_page != NULL)
-    response = calloc(75 + strlen(data->code_page) ,sizeof(char));
-  else
-    response = calloc(75 + 100 ,sizeof(char));
-  if (response == NULL)
-    return (-1);
-  if (data->error == 200)
-    sprintf(response,"%s%s%s\r\n","HTTP/1.1 200 OK\r\n","Content-Type: text/html; charset=UTF-8\r\n\r\n", data->code_page);
-  else
-    {
-      sprintf(response, "%s",  "HTTP/1.1 404 Not Found\r\n"
-	     "Content-Type: text/html; charset=UTF-8\r\n\r\n"
-	     "<!DOCTYPE html><html><head><title>404 NO FOUND</title>"
-	     "<style>body { background-color: white }"
-	     "h1 { font-size:4cm; text-align: center; color: black;"
-	     " text-shadow: 0 0 2mm red}</style></head>"
-	     "<body><h1>Not Found</h1><hr><p> V.01 serv_baptiste</body></html>\r\n");
-    }
+  char response2[] = "HTTP/1.1 404 Not Found\r\n"
+    "Content-Type: text/html; charset=UTF-8\r\n\r\n"
+    "<!DOCTYPE html><html><head><title>404 NO FOUND</title>"
+    "<style>body { background-color: white }"
+    "h1 { font-size:4cm; text-align: center; color: black;"
+    " text-shadow: 0 0 2mm red}</style></head>";
+  printf("reponse = %s\n",response2);
+
+  /*   if (data->code_page != NULL) */
+  /*     { */
+  /* 	response = calloc(75 + strlen(data->code_page) ,sizeof(char)); */
+  /*     } */
+  /*     else */
+  /* 	{ */
+  /* 	response = calloc(75 + 100 ,sizeof(char)); */
+  /* 	} */
+  /* if (response == NULL) */
+  /*   return (-1); */
+  /* if (data->error == 200) */
+  /*   { */
+  /*     sprintf(response,"%s%s%s\r\n","HTTP/1.1 200 OK\r\n","Content-Type: text/html; charset=UTF-8\r\n\r\n", data->code_page); */
+  /*     printf("response = %s\n", response); */
+  /*   } */
+  /* else */
+  /*   { */
+  /*          /\* "HTTP/1.1 404 Not Found\r\n" *\/ */
+  /* 	   /\*               "Content-Type: text/html; charset=UTF-8\r\n\r\n" *\/ */
+  /* 	   /\*               "<!DOCTYPE html><html><head><title>404 NO FOUND</title>" *\/ */
+  /* 	   /\*               "<style>body { background-color: white }"  *\/ */
+  /* 	   /\*               "h1 { font-size:4cm; text-align: center; color: black;" *\/ */
+  /* 	   /\*               " text-shadow: 0 0 2mm red}</style></head>" *\/ */
+  /* 	   /\*  "<body><h1>Not Found</h1><hr><p> V.01 serv_baptiste</body></html>\r\n";  *\/ */
+
+  /*   } */
+  /* write(csock, response, sizeof(response) - 1); */
+  /* printf("page = %s\n", data->code_page); */
+
   return (1);
 }
 
