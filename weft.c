@@ -73,12 +73,12 @@ int	get_page(t_weft *data_code)
       sprintf(path, "%s%s", ROOT, data_code->page);
   if ((fp = fopen (path, "r")) != NULL)
     {
-      data_code->code_page = fgets(code, 9999, fp);
+      data_code->code_page = strdup(fgets(code, 9999, fp));
       data_code->error = 200;
+      fclose(fp);
     }
   else
     data_code->error = 404;
   free(path);
-  fclose(fp);
   return (1);
 }
