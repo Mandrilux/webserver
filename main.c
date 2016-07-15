@@ -5,7 +5,7 @@
 ** Login   <baptiste.heraud@epitech.eu>
 **
 ** Started on  Wed Jul 13 13:56:18 2016
-** Last update Thu Jul 14 21:28:42 2016 
+** Last update Fri Jul 15 11:45:57 2016 
 */
 
 #include "data.h"
@@ -40,8 +40,8 @@ int	main()
 		  csock = accept(sock, (SOCKADDR*)&csin, &crecsize);
 		  printf("Un client se connecte avec la socket %d de %s:%d\n", csock, inet_ntoa(csin.sin_addr), htons(csin.sin_port));
        		  read_weft(csock, inet_ntoa(csin.sin_addr));
-		  usleep(.200);
-		  printf("Fermeture de la socket client\n");
+		  /* usleep(.200); */
+		  /* printf("Fermeture de la socket client\n"); */
 		  close(csock);
 		}
 	    }
