@@ -1,30 +1,14 @@
 /*
-** display.c for  in /home/baptiste/dev_stage/moulinette
+** log.c for  in /home/baptiste/project/webserver
 **
 ** Made by
-** Login   <baptiste@epitech.net>
+** Login   <baptiste.heraud@epitech.eu>
 **
-** Started on  Fri Jul  1 11:33:51 2016
-** Last update Thu Jul 14 21:30:45 2016 
+** Started on  Sat Jul 16 11:43:13 2016
+** Last update Sat Jul 16 11:43:23 2016 
 */
 
 #include "data.h"
-
-/* int	log_error(char *msg, int status, char *file, char *flag, int display) */
-/* { */
-/*   FILE *fd; */
-/*   char  *date; */
-
-/*   date = get_date_system(); */
-/*   if (display == 1) */
-/*     printf("[%s] %s\n", date, msg); */
-/*   if ((fd = fopen(file, "a+")) == NULL) */
-/*     return status; */
-/*   fprintf(fd, "[%s] [%s] %s\n", flag, date, msg); */
-/*   fclose(fd); */
-/*   free(date); */
-/*   return (status); */
-/* } */
 
 int	log_error_file(char *flag, char *ip, char *file_err, char *log)
 {

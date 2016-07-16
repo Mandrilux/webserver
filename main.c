@@ -5,7 +5,7 @@
 ** Login   <baptiste.heraud@epitech.eu>
 **
 ** Started on  Wed Jul 13 13:56:18 2016
-** Last update Fri Jul 15 11:47:45 2016 
+** Last update Sat Jul 16 11:44:13 2016 
 */
 
 #include "data.h"
@@ -22,7 +22,6 @@ int	main()
 
   if ((sock = socket(AF_INET, SOCK_STREAM, 0)) != INVALID_SOCKET)
     {
-      /* printf("La socket %d est maintenant ouverte en mode TCP/IP\n", sock); */
       sin.sin_addr.s_addr = htonl(INADDR_ANY);
       sin.sin_family = AF_INET;
       sin.sin_port = htons(PORT);
@@ -50,9 +49,7 @@ int	main()
 	}
       else
 	perror("bind");
-      /* printf("Fermeture de la socket serveur\n"); */
       close(sock);
-      /* printf("Fermeture du serveur terminée\n"); */
     }
   else
     perror("socket");
