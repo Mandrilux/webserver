@@ -9,25 +9,18 @@ int     read_weft(SOCKET csock, char *ip)
   t_weft data_code;
 
   if ((flag = read(csock, buff, 1023)) == -1)
-    return (-1);
+    return -1;
   if ((tmp = epur_str(buff)) == NULL)
     exit (printf("ERROR MEMORY\n"));
   if ((line = strtowordtab(tmp, '\n')) == NULL)
     return (printf("ERROR MEMORY\n"));
   if (decode_weft(line, &data_code) == -1)
     return (printf("Erreur decode string\n"));
-  /* if (data_code.error = 200) */
-  /*   { */
-  /*     send_weft_200(csock, ip, data_code); */
-
-  /*   } */
-  /* else */
-  /*   send_weft_404(csock, ip, data_code.page); */
   send_page(csock, &data_code, ip);
   free(tmp);
   free_double_char(line);
   free_data(&data_code);
-  return (1);
+  return 1;
 }
 
 int	decode_weft(char **data, t_weft *data_code)
@@ -56,29 +49,40 @@ int	decode_weft(char **data, t_weft *data_code)
       if (strstr(data[i], "Connection:") != NULL)
 	data_code->etat = &(data[i][11]);
     }
-  return (1);
+  return 1;
 }
 
 int	get_page(t_weft *data_code)
 {
-  char	*path = NULL;
-  FILE *fp = NULL;
-  char	code[10000] = {0};
-
+  char	*path = NULL,  *code = NULL;
+  FILE	*fp = NULL;
+  char	c = 0;
+  int	i = 0;
+  if ((code = calloc(2, sizeof(char))) == NULL)
+    return -1;
   if ((path = calloc((int)strlen(ROOT) + (int)strlen(data_code->page) + 15,sizeof(char))) == NULL)
-    return (-1);
+    return -1;
   if (strcmp(data_code->page, "/") == 0)
       sprintf(path, "%s%s", ROOT , "/index.html");
   else
       sprintf(path, "%s%s", ROOT, data_code->page);
   if ((fp = fopen (path, "r")) != NULL)
     {
-      data_code->code_page = strdup(fgets(code, 9999, fp));
+      while((c = fgetc(fp))!=EOF)
+	{
+	  code[i] = c;
+	  code[i + 1] = 0;
+	  i++;
+	  code = realloc (code, sizeof(char) * (strlen(code) + 2));
+	  code[i] = 0;
+	  code[i + 1] = 0;
+	}
+      data_code->code_page = strdup(code);
       data_code->error = 200;
       fclose(fp);
     }
   else
     data_code->error = 404;
   free(path);
-  return (1);
+  return 1;
 }
