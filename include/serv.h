@@ -21,7 +21,7 @@ typedef struct          s_weft
   char	*page;
   char	*version;
   char	*code_page;
-  int	error;
+  int	error:10;
 }                       t_weft;
 
 #define PORT 80
