@@ -56,10 +56,11 @@ int	get_page(t_weft *data_code)
 {
   char	*path = NULL,  *code = NULL;
   FILE	*fp = NULL;
-  char	c = 0;
-  int	i = 0;
-  if ((code = calloc(2, sizeof(char))) == NULL)
-    return -1;
+  /* char	c = 0; */
+  /* int	i = 0; */
+  long len = 0;
+  /* if ((code = calloc(2, sizeof(char))) == NULL) */
+  /*   return -1; */
   if ((path = calloc((int)strlen(ROOT) + (int)strlen(data_code->page) + 15,sizeof(char))) == NULL)
     return -1;
   if (strcmp(data_code->page, "/") == 0)
@@ -68,16 +69,20 @@ int	get_page(t_weft *data_code)
       sprintf(path, "%s%s", ROOT, data_code->page);
   if ((fp = fopen (path, "r")) != NULL)
     {
-      while((c = fgetc(fp))!=EOF)
-	{
-	  code[i] = c;
-	  code[i + 1] = 0;
-	  i++;
-	  code = realloc (code, sizeof(char) * (strlen(code) + 2));
-	  code[i] = 0;
-	  code[i + 1] = 0;
-	}
-      data_code->code_page = strdup(code);
+      len = file_size(path);
+      if ((code = calloc(len + 1, sizeof(char))) == NULL)
+	return -1;
+      fread(code, len, 1, fp);
+      /* while((c = fgetc(fp))!=EOF) */
+      /* 	{ */
+      /* 	  code[i] = c; */
+      /* 	  code[i + 1] = 0; */
+      /* 	  i++; */
+      /* 	  code = realloc (code, sizeof(char) * (strlen(code) + 2)); */
+      /* 	  code[i] = 0; */
+      /* 	  code[i + 1] = 0; */
+      /* 	} */
+      data_code->code_page = code;
       data_code->error = 200;
       fclose(fp);
     }

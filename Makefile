@@ -7,7 +7,8 @@ SRC	=	main.c \
 		str.c \
 		free.c \
 		weft.c \
-		send.c
+		send.c \
+		function.c
 
 INC_DIR	=	include
 

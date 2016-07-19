@@ -28,6 +28,10 @@ char		 *get_date_system();
 int		 free_double_char(char **tab);
 void		 free_data(t_weft *data_code);
 
+		/* function.c */
+
+long		 file_size(const char *filename);
+
 		/* weft.c */
 
 int		 read_weft(SOCKET csock, char *ip);
