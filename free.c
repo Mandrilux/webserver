@@ -2,7 +2,8 @@
 
 int	free_double_char(char **tab)
 {
-  int	i = -1;
+   /* int	i = -1; */
+  int16_t	i = -1;
 
   if (tab == NULL)
     return -1;

@@ -5,7 +5,7 @@
 ** Login   <baptiste.heraud@epitech.eu>
 **
 ** Started on  Wed Jul 13 13:56:18 2016
-** Last update Sat Jul 16 11:45:11 2016 
+** Last update Tue Jul 19 15:08:44 2016 
 */
 
 #include "data.h"
@@ -18,7 +18,8 @@ int	main()
   SOCKADDR_IN csin;
   SOCKET csock;
   socklen_t crecsize = sizeof(csin);
-  int sock_err;
+  /* int sock_err; */
+  int8_t sock_err;
 
   if ((sock = socket(AF_INET, SOCK_STREAM, 0)) != INVALID_SOCKET)
     {

@@ -3,7 +3,7 @@
 int     read_weft(SOCKET csock, char *ip)
 {
   char  buff[1024] = {0};
-  int   flag = 0;
+  int8_t flag = 0;
   char  **line = NULL;
   char  *tmp = NULL;
   t_weft data_code;
@@ -25,7 +25,7 @@ int     read_weft(SOCKET csock, char *ip)
 
 int	decode_weft(char **data, t_weft *data_code)
 {
-  int	i = -1;
+  int8_t	i = -1;
   char  **path = NULL;
 
   if (data == NULL)
@@ -56,11 +56,8 @@ int	get_page(t_weft *data_code)
 {
   char	*path = NULL,  *code = NULL;
   FILE	*fp = NULL;
-  /* char	c = 0; */
-  /* int	i = 0; */
   long len = 0;
-  /* if ((code = calloc(2, sizeof(char))) == NULL) */
-  /*   return -1; */
+
   if ((path = calloc((int)strlen(ROOT) + (int)strlen(data_code->page) + 15,sizeof(char))) == NULL)
     return -1;
   if (strcmp(data_code->page, "/") == 0)
@@ -74,15 +71,6 @@ int	get_page(t_weft *data_code)
       if ((code = calloc(len + 1, sizeof(char))) == NULL)
 	return -1;
       fread(code, len, 1, fp);
-      /* while((c = fgetc(fp))!=EOF) */
-      /* 	{ */
-      /* 	  code[i] = c; */
-      /* 	  code[i + 1] = 0; */
-      /* 	  i++; */
-      /* 	  code = realloc (code, sizeof(char) * (strlen(code) + 2)); */
-      /* 	  code[i] = 0; */
-      /* 	  code[i + 1] = 0; */
-      /* 	} */
       data_code->code_page = code;
       data_code->error = 200;
       fclose(fp);
