@@ -69,7 +69,8 @@ int	get_page(t_weft *data_code)
       sprintf(path, "%s%s", ROOT, data_code->page);
   if ((fp = fopen (path, "r")) != NULL)
     {
-      len = file_size(path);
+      if ((len = file_size(path)) == -1)
+	return (len);
       if ((code = calloc(len + 1, sizeof(char))) == NULL)
 	return -1;
       fread(code, len, 1, fp);
